@@ -1,0 +1,91 @@
+---
+title: "Introduction to ggplot2"
+author: "Samruddhi Somani"
+date: "March 1, 2017"
+output:
+  revealjs::revealjs_presentation:
+    self_contained: false
+    center: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,messages=FALSE)
+```
+
+Setup  
+---
+```{r,results="hide",message=FALSE,warning=FALSE}
+#installation
+# install.packages(c("ggplot2","ggthemes","ggforce","cowplot"),
+#                 dependencies=TRUE,
+#                 repos="http://cran.revolutionanalytics.com/")
+
+#loading
+library(ggplot2) #grammar of graphics
+library(ggthemes) #optional: switch to popular themes
+library(cowplot) #optional: layouts
+```
+---
+
+```{r}
+sessionInfo()
+```
+
+ggplot2 Philosophy
+---
+"grammar of graphics, the idea that you can build every graph from the same components: a data set, a coordinate system, and geoms--visual marks that represent data points" 
+
+~ RStudio
+
+Data Details  
+---
+```{r}
+head(diamonds)
+```
+---
+
+Introduction to Geoms
+---
+```{r,fig.height=3, fig.width=15}
+baseg=ggplot(diamonds, aes(x=cut,y=price))+
+    theme_few()+
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+g_point=baseg+geom_point()+ggtitle("Point")
+g_jitter=baseg+geom_jitter(alpha=.3)+ggtitle("Jitter")
+g_box=baseg+geom_boxplot()+ggtitle("Box")
+g_violin=baseg+geom_violin()+ggtitle("Violin")
+
+
+plot_grid(g_point,g_jitter,g_box,g_violin,ncol=4) #display
+```
+
+Overlaying Geoms
+---
+
+```{r,fig.height=3,fig.width=15, message=FALSE,warning=FALSE}
+base_layer=ggplot(diamonds,aes(x=carat,y=price))+
+    theme(legend.position=c(.9,.3))+
+    guides(color=guide_legend(nrow=3,byrow=TRUE))
+
+g_point=base_layer+geom_point(alpha=.1)+ggtitle("Point")
+g_line=g_point+geom_smooth(color='red')+ggtitle("Line")
+g_colors=base_layer+geom_point(alpha=.3,aes(color=cut))+ggtitle('Colors')
+g_groups=g_colors+geom_smooth(aes(color=cut))+ggtitle("Groups")
+plot_grid(g_point,g_line,g_colors,g_groups,ncol=4)
+```
+
+Faceting: Small Multiples
+---
+
+```{r,fig.height=3,fig.width=12,message=FALSE}
+base_layer+geom_point()+geom_smooth()+facet_grid(.~cut)
+```
+---
+  
+Resources
+---
+- ggplot2 documentation
+- R Graphics Cookbook
+- StackOverflow
+- Rstudio Cheat Sheet

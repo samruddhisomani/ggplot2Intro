@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Samruddhi Somani" />
+  <title>Introduction to ggplot2</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="intro_files/reveal.js-3.3.0/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="intro_files/reveal.js-3.3.0/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .sourceCode {
+    overflow: auto;
+    max-width: 100%; /* Takes up the whole width of the slide */
+    max-height: 400px; /* 100% doesn't work here, 400px seems to work well with almost every resolution. */
+}
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'intro_files/reveal.js-3.3.0/css/print/pdf.css' : 'intro_files/reveal.js-3.3.0/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="intro_files/reveal.js-3.3.0/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Introduction to ggplot2</h1>
+    <h2 class="author">Samruddhi Somani</h2>
+    <h3 class="date">March 1, 2017</h3>
+</section>
+
+<section id="setup" class="slide level2">
+<h1>Setup</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#installation</span>
+<span class="co"># install.packages(c(&quot;ggplot2&quot;,&quot;ggthemes&quot;,&quot;ggforce&quot;,&quot;cowplot&quot;),</span>
+<span class="co">#                 dependencies=TRUE,</span>
+<span class="co">#                 repos=&quot;http://cran.revolutionanalytics.com/&quot;)</span>
+
+<span class="co">#loading</span>
+<span class="kw">library</span>(ggplot2) <span class="co">#grammar of graphics</span>
+<span class="kw">library</span>(ggthemes) <span class="co">#optional: switch to popular themes</span>
+<span class="kw">library</span>(cowplot) <span class="co">#optional: layouts</span></code></pre></div>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()<span class="co"> #output trimmed</span></code></pre></div>
+<pre><code class="overflow">## R version 3.3.1 (2016-06-21)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 14393)
+##
+## locale:
+## [1] LC_COLLATE=English_United States.1252
+## [2] LC_CTYPE=English_United States.1252
+## [3] LC_MONETARY=English_United States.1252
+## [4] LC_NUMERIC=C
+## [5] LC_TIME=English_United States.1252
+##
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base
+##
+## other attached packages:
+## [1] cowplot_0.7.0  ggthemes_3.4.0 ggplot2_2.2.1
+<!--##
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.9      revealjs_0.8     assertthat_0.1   digest_0.6.12
+##  [5] rprojroot_1.2    plyr_1.8.4       grid_3.3.1       gtable_0.2.0
+##  [9] backports_1.0.5  magrittr_1.5     evaluate_0.10    scales_0.4.1
+## [13] stringi_1.1.2    lazyeval_0.2.0   rmarkdown_1.3    tools_3.3.1
+## [17] stringr_1.2.0    munsell_0.4.3    yaml_2.1.14      colorspace_1.3-2
+## [21] htmltools_0.3.5  knitr_1.15.1     tibble_1.2--></code></pre>
+</section>
+<section id="ggplot2-philosophy" class="slide level2">
+<h1>ggplot2 Philosophy</h1>
+<dl>
+<dt>“grammar of graphics, the idea that you can build every graph from the same components: a data set, a coordinate system, and geoms–visual marks that represent data points”</dt>
+<dd><p>RStudio</p>
+</dd>
+</dl>
+</section>
+<section id="data-details" class="slide level2">
+<h1>Data Details</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(diamonds)</code></pre></div>
+<pre><code>## # A tibble: 6 × 10
+##   carat       cut color clarity depth table price     x     y     z
+##   &lt;dbl&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  0.23     Ideal     E     SI2  61.5    55   326  3.95  3.98  2.43
+## 2  0.21   Premium     E     SI1  59.8    61   326  3.89  3.84  2.31
+## 3  0.23      Good     E     VS1  56.9    65   327  4.05  4.07  2.31
+## 4  0.29   Premium     I     VS2  62.4    58   334  4.20  4.23  2.63
+## 5  0.31      Good     J     SI2  63.3    58   335  4.34  4.35  2.75
+## 6  0.24 Very Good     J    VVS2  62.8    57   336  3.94  3.96  2.48</code></pre>
+</section>
+<section id="introduction-to-geoms" class="slide level2">
+<h1>Introduction to Geoms</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">baseg=<span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x=</span>cut,<span class="dt">y=</span>price))+
+<span class="st">    </span><span class="kw">theme_few</span>()+
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))
+
+g_point=baseg+<span class="kw">geom_point</span>()+<span class="kw">ggtitle</span>(<span class="st">&quot;Point&quot;</span>)
+g_jitter=baseg+<span class="kw">geom_jitter</span>(<span class="dt">alpha=</span>.<span class="dv">3</span>)+<span class="kw">ggtitle</span>(<span class="st">&quot;Jitter&quot;</span>)
+g_box=baseg+<span class="kw">geom_boxplot</span>()+<span class="kw">ggtitle</span>(<span class="st">&quot;Box&quot;</span>)
+g_violin=baseg+<span class="kw">geom_violin</span>()+<span class="kw">ggtitle</span>(<span class="st">&quot;Violin&quot;</span>)
+
+
+<span class="kw">plot_grid</span>(g_point,g_jitter,g_box,g_violin,<span class="dt">ncol=</span><span class="dv">4</span>) <span class="co">#display</span></code></pre></div>
+<p><img src="intro_files/figure-revealjs/unnamed-chunk-4-1.png" width="1440" /></p>
+</section>
+<section id="overlaying-geoms" class="slide level2">
+<h1>Overlaying Geoms</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_layer=<span class="kw">ggplot</span>(diamonds,<span class="kw">aes</span>(<span class="dt">x=</span>carat,<span class="dt">y=</span>price))+
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="kw">c</span>(.<span class="dv">9</span>,.<span class="dv">3</span>))+
+<span class="st">    </span><span class="kw">guides</span>(<span class="dt">color=</span><span class="kw">guide_legend</span>(<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">byrow=</span><span class="ot">TRUE</span>))
+
+g_point=base_layer+<span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">1</span>)+<span class="kw">ggtitle</span>(<span class="st">&quot;Point&quot;</span>)
+g_line=g_point+<span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>)+<span class="kw">ggtitle</span>(<span class="st">&quot;Line&quot;</span>)
+g_colors=base_layer+<span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">3</span>,<span class="kw">aes</span>(<span class="dt">color=</span>cut))+<span class="kw">ggtitle</span>(<span class="st">&#39;Colors&#39;</span>)
+g_groups=g_colors+<span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">color=</span>cut))+<span class="kw">ggtitle</span>(<span class="st">&quot;Groups&quot;</span>)
+<span class="kw">plot_grid</span>(g_point,g_line,g_colors,g_groups,<span class="dt">ncol=</span><span class="dv">4</span>)</code></pre></div>
+<p><img src="intro_files/figure-revealjs/unnamed-chunk-5-1.png" width="1440" /></p>
+</section>
+<section id="faceting-small-multiples" class="slide level2">
+<h1>Faceting: Small Multiples</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">base_layer+<span class="kw">geom_point</span>()+<span class="kw">geom_smooth</span>()+<span class="kw">facet_grid</span>(.~cut)</code></pre></div>
+<p><img src="intro_files/figure-revealjs/unnamed-chunk-6-1.png" width="1152" /></h>
+</section>
+<section id="resources" class="slide level2">
+<h1>Resources</h1>
+<ul>
+<li><a href="http://docs.ggplot2.org">ggplot2 documentation</a></li>
+<li><a href="http://www.cookbook-r.com/Graphs/">R Graphics Cookbook</a></li>
+<li><a href="http://stackoverflow.com/tags/ggplot2/info">StackOverflow</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">Rstudio Cheat Sheet</a></li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="intro_files/reveal.js-3.3.0/lib/js/head.min.js"></script>
+  <script src="intro_files/reveal.js-3.3.0/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
